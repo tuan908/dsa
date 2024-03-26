@@ -67,6 +67,9 @@ void mergeSort(vector<int> &arr, int l, int r)
 
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int testCount;
     cin >> testCount;
 
