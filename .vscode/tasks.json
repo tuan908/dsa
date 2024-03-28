@@ -1,10 +1,19 @@
 {
   "tasks": [
     {
+      "label": "Create build folder",
+      "type": "shell",
+      "command": "[System.IO.Directory]::CreateDirectory('${workspaceFolder}\\bin')",
+      "group": "build"
+    },
+    {
       "label": "Clean build folder",
       "type": "shell",
-      "command": "Remove-Item -Force ${workspaceFolder}\\bin\\*.*",
-      "group": "build"
+      "command": "Remove-Item -Recurse ${workspaceFolder}\\bin\\*.*",
+      "group": "build",
+      "dependsOn": [
+        "Create build folder"
+      ]
     },
     {
       "type": "cppbuild",
@@ -14,14 +23,15 @@
         "-fdiagnostics-color=always",
         "-g",
         "${file}",
-        "-std=c++20",
         "-o",
         "${workspaceFolder}\\bin\\${fileBasenameNoExtension}.exe"
       ],
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
